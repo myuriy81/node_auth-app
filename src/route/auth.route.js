@@ -1,10 +1,8 @@
-// const Router = require('express');
+// import { express } from 'express';
 import { Router } from 'express';
-// const express = require('express');
+import { authController } from '../controllers/auth.controllers.js';
 
-export const authRouter = Router();
 // export const authRouter = new express.Router();
+export const authRouter = Router();
 
-authRouter.post('/registration', (req, res) => {
-  res.send('Hello2');
-});
+authRouter.post('/registration', authController.register);
