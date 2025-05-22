@@ -30,7 +30,7 @@ export function sendActivationLink(email, token) {
     <a href="${link}">${link}</a>
   `;
 
-  return send({ email, html, subject: 'Account activation' });
+  return send(email, 'Account activation', html);
 }
 
 function sendResetEmail(email, token) {
@@ -39,11 +39,7 @@ function sendResetEmail(email, token) {
   <h1>Reset password</h1>
   <p>Password reset requested. Click <a href="${href}">here</a> to reset your password.</p>`;
 
-  send({
-    email,
-    html,
-    subject: 'Reset password',
-  });
+  send(email, 'Reset password', html);
 }
 
 export const emailService = {

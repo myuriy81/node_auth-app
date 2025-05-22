@@ -38,7 +38,7 @@ async function register(email, password, name) {
     activationToken,
     name,
   });
-  await emailService.sendActivationEmail(email, activationToken);
+  await emailService.sendActivationLink(email, activationToken);
 }
 
 async function update(
@@ -63,7 +63,7 @@ async function update(
     user.email = email;
   }
 
-  user.save();
+  await user.save();
 }
 
 async function reqPwdReset(email) {
@@ -73,7 +73,7 @@ async function reqPwdReset(email) {
   user.pwdResetToken = pwdResetToken;
   await user.save();
 
-  emailService.sendResetEmail(email, pwdResetToken);
+  await emailService.sendResetEmail(email, pwdResetToken);
 }
 
 export const userService = {

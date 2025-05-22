@@ -87,7 +87,7 @@ const refresh = async (req, res) => {
     throw ApiError.unauthorized();
   }
 
-  const user = await userService.findByEmail(userData.id);
+  const user = await userService.findById(userData.id);
 
   generateToken(res, user);
 };
@@ -150,7 +150,7 @@ async function validatePwResetToken(req, res) {
       (!pwdResetToken ? 'token required' : undefined),
   };
 
-  if (errors.pwdResetToken) {
+  if (errors.token) {
     throw ApiError.badRequest('Bad request', errors);
   }
 
@@ -176,7 +176,7 @@ async function pwdReset(req, res) {
 
   user.password = hashedPass;
   user.pwdResetToken = null;
-  user.save();
+  await user.save();
 
   res.sendStatus(204);
 }
@@ -190,4 +190,6 @@ export const authController = {
   reqPwdReset,
   validatePwResetToken,
   pwdReset,
+  validateEmail,
+  validatePassword,
 };
